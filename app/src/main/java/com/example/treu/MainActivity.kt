@@ -34,7 +34,7 @@ fun TriangleCalculatorScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(text = "Калькулятор треугольника", fontSize = 18.sp, style = MaterialTheme.typography.titleMedium)
+        Text(text = "Вариант 4: Калькулятор треугольника", fontSize = 18.sp, style = MaterialTheme.typography.titleMedium)
 
         OutlinedTextField(
             value = letterInput,
