@@ -3,45 +3,64 @@ package com.example.treu
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.treu.ui.theme.TreuTheme
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            TreuTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                TriangleCalculatorScreen()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun TriangleCalculatorScreen() {
+    var letterInput by remember { mutableStateOf("") }
+    var valueInput by remember { mutableStateOf("") }
+    var resultText by remember { mutableStateOf("Результат появится здесь") }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TreuTheme {
-        Greeting("Android")
+    Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(text = "Калькулятор треугольника", fontSize = 18.sp, style = MaterialTheme.typography.titleMedium)
+
+        OutlinedTextField(
+            value = letterInput,
+            onValueChange = { letterInput = it },
+            label = { Text("Буква элемента (k, g, p)") },
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
+        )
+
+        OutlinedTextField(
+            value = valueInput,
+            onValueChange = { valueInput = it },
+            label = { Text("Значение элемента") },
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 1
+        )
+
+        Button(
+            onClick = {
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Рассчитать")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = resultText, fontSize = 16.sp, color = MaterialTheme.colorScheme.primary)
     }
 }
