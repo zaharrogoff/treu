@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.sqrt
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +54,21 @@ fun TriangleCalculatorScreen() {
 
         Button(
             onClick = {
+                val letter = letterInput.trim().lowercase()
+                val value = valueInput.toDoubleOrNull() ?: 0.0
+
+                var a = 0.0
+                var c = 0.0
+                var s = 0.0
+
+                // Добавили оператор when и формулы
+                when (letter) {
+                    "k" -> { a = value; c = a * sqrt(2.0); s = (a * a) / 2.0 }
+                    "g" -> { c = value; a = c / sqrt(2.0); s = (c * c) / 4.0 }
+                    "p" -> { s = value; a = sqrt(2.0 * s); c = 2.0 * sqrt(s) }
+                }
+
+                resultText = "Катет: $a, Гипотенуза: $c, Площадь: $s"
             },
             modifier = Modifier.fillMaxWidth()
         ) {
